@@ -32,12 +32,12 @@ ARG BIN_TARGET=--bins
 ARG PROFILE=release
 
 #ENV RUSTFLAGS="-C link-arg=-Wl,--compress-debug-sections=zlib -C force-frame-pointers=yes"
-RUN cargo build --package=wstunnel-cli --profile=${PROFILE} ${BIN_TARGET}
+RUN cargo build --package=wstunnel-cli --features=jemalloc --profile=${PROFILE} ${BIN_TARGET}
 
 
 ############################################################
 # Final image
-FROM debian:bookworm-slim as final-image
+FROM debian:bookworm-slim AS final-image
 
 RUN useradd -ms /bin/bash app && \
         apt-get update && \
